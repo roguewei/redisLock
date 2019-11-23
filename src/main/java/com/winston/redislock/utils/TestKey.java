@@ -18,5 +18,5 @@ public class TestKey extends BasePrefix {
     }
 
     public static TestKey COUNT_KEY = new TestKey("test");
-    public static TestKey COUNT_LOCK = new TestKey(10, "lock");
+    public static TestKey COUNT_LOCK = new TestKey(60, "lock");
 }

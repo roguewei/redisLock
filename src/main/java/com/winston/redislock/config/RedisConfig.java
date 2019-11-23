@@ -1,11 +1,17 @@
 package com.winston.redislock.config;
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.RedissonNodeConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.core.io.ClassPathResource;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+
+import java.io.IOException;
 
 /**
  * @ClassName RedisConfig
@@ -50,5 +56,12 @@ public class RedisConfig {
         JedisPool jedisPool = new JedisPool(config, host, port, timeout, password, database);
         return jedisPool;
     }
+
+    @Bean
+    public RedissonClient redissonClient() throws IOException {
+        Config config = Config.fromYAML(RedisConfig.class.getClassLoader().getResource("redisson-config.yml"));
+        return Redisson.create(config);
+    }
+
 
 }
